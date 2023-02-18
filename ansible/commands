@@ -1,0 +1,28 @@
+sudo apt install ansible
+sudo apt install ansible-lint
+
+https://www.middlewareinventory.com/blog/run-ansible-playbook-locally/
+
+ansible --list-hosts all
+ansible --list-hosts -i hosts all
+
+ansible all -i hosts -m ping
+ansible all -i hosts -m ping -c local
+
+ansible -i hosts all -m copy -a "src=/etc/ansible/hosts dest=/tmp/testfile" -c local
+
+ansible -i hosts all -m ansible.builtin.pip -a "" -c local
+
+ansible-playbook -i hosts playbook_1_basics.yaml
+
+ad-hoc commands:
+#Create directory
+ansible all -i hosts -m ansible.builtin.file -a "dest=/tmp/newfilecreatedwithadhoc mode=755 state=directory" -c local
+
+#Playbooks:
+# Playbooks record and execute Ansible’s configuration, deployment, and orchestration functions. They can describe a policy you want your remote systems to enforce, or a set of steps in a general IT process.
+# If Ansible modules are the tools in your workshop, playbooks are your instruction manuals, and your inventory of hosts are your raw material.
+
+#Check the playbook before execution
+ansible-lint playbook_1_basics.yaml
+

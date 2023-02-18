@@ -1,0 +1,23 @@
+---
+  # Play 1
+  - name: "Step1: Create a folder and add a file to it"
+    hosts: all
+    connection: local
+    tasks:
+    - name: "Compress directory /tmp/LearnMoreAnsible into /tmp/LearnMoreAnsible.tgz"
+      archive:
+        path: /tmp/LearnMoreAnsible
+        dest: /tmp/LearnMoreAnsible.tgz
+    - name: "Copy archive to home"
+      copy:
+        src: /tmp/LearnMoreAnsible.tgz
+        dest: /home/LearnMoreAnsible.tgz
+    - name: Find archives in /home
+      find:
+        paths: /home
+        patterns: '*.tgz'
+      register: output
+    - debug: var=output.files
+    
+
+        

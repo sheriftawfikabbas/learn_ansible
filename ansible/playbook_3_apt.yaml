@@ -1,0 +1,23 @@
+---
+  # Play 1
+  - name: "Use apt"
+    hosts: all
+    connection: local
+    become: true
+    become_method: sudo
+    tasks:
+    # Task 1
+    - name: Remove vim
+      apt:
+        name: vim
+        state: absent
+    # Task 2
+    - name: Install vim via command
+      command: sudo apt install vim
+    # Task 3
+    - name: Install vim and call apt update
+      apt:
+        name: vim
+        state: present
+        update_cache: yes
+ 

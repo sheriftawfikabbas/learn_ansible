@@ -1,0 +1,31 @@
+---
+  # Play 1
+  - name: "Play 1: Create a folder and add a file to it"
+    hosts: all
+    connection: local
+    tasks:
+    # Task 1
+    - name: "Display files"
+      command: ls
+      register: "output"
+    # Debug task
+    - debug: var=output.stdout_lines
+    # Task 2
+    - name: "Create folder, create file into it"
+      shell: "cd /tmp/;mkdir LearnAnsible;cd LearnAnsible;echo abc > myfile"
+      register: "output"
+    # Debug task
+    - debug: var=output.stdout_lines
+
+  # Play 2
+  - name: "Play 2: Delete previous folder, create another folder and archive it"
+    hosts: all
+    connection: local
+    gather_facts: false
+    tasks:
+    # Task 1|
+    - name: "Delete previous folder, create new one"
+      shell: "cd /tmp/;rm -r LearnAnsible;mkdir LearnMoreAnsible;cd LearnMoreAnsible;echo abc > myfile2;ls *"
+      register: "output"
+    - debug: 
+        var: output.stdout_lines
